@@ -14,6 +14,10 @@ class state1 implements someState
     {
         // move basis of context
     }
+    public String getState()
+    {
+        return "";
+    }
 }
 
 class Context

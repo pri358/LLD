@@ -1,6 +1,9 @@
 {
     "java.project.sourcePaths": [
-        "tic-tac-toe",
-        "snakeAndFood"
-    ]
+        "snakeAndFood",
+        "rate-limiter",
+        "mock",
+        "."
+    ],
+    "java.project.referencedLibraries": []
 }

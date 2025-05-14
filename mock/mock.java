@@ -14,18 +14,18 @@ featureLivetsrategy
 feature manager 
 
  */
-
+import java.util.*;
 public class mock {
 
     public static void main(String[] args)
     {
         IFeatureLiveStrategy mainFeatureLiveStrategy = new DefaultMainFeatureLiveStrategy();
         IFeatureLiveStrategy subFeatureLiveStrategy = new DefaultSubFeatureLiveStrategy();
-        Feature mainFeature1 = new Feature(null, mainFeatureLiveStrategy); 
-        Feature mainFeature2 = new Feature(null, mainFeatureLiveStrategy);
+        Feature mainFeature1 = new MainFeature(null, mainFeatureLiveStrategy); 
+        Feature mainFeature2 = new MainFeature(null, mainFeatureLiveStrategy);
 
-        Feature subFeature1 = new Feature(null, subFeatureLiveStrategy);
-        Feature subFeature2 = new Feature(null, subFeatureLiveStrategy); 
+        Feature subFeature1 = new MainFeature(null, subFeatureLiveStrategy);
+        Feature subFeature2 = new MainFeature(null, subFeatureLiveStrategy); 
 
         mainFeature1.addSubFeature(subFeature1);
         mainFeature2.addSubFeature(subFeature2);
@@ -85,6 +85,7 @@ abstract class Feature
     IFeatureLiveStrategy featureLiveStrategy;
 
     public abstract boolean isFeatureLive(Country country);
+    public abstract void addSubFeature(Feature feature);
 
 }
 
@@ -93,9 +94,9 @@ class MainFeature extends Feature
 {
     public MainFeature(List<Feature> subFeatures, IFeatureLiveStrategy strategy)
     {
-        id = new UUID.randomUUID.toString();
+        id = UUID.randomUUID().toString();
         countryMap = new HashMap<>(); 
-        this.subfeatures = subfeatures;
+        this.subfeatures = subFeatures;
         this.featureLiveStrategy = strategy;
     }
 
@@ -112,7 +113,7 @@ class MainFeature extends Feature
 
     public void makeFeatureLive(Country country)
     {
-        if(subFeatures != null || subfeatures.size() != 0)
+        if(subfeatures != null || subfeatures.size() != 0)
         {
             System.out.println("Not allowed!");
             return;
@@ -126,7 +127,7 @@ interface IFeatureLiveStrategy
     public boolean computeFeatureLive(Feature feature, Country country);
 }
 
-class DefaultMainFeatureLiveStrategy
+class DefaultMainFeatureLiveStrategy implements IFeatureLiveStrategy
 {
     public boolean computeFeatureLive(Feature feature, Country country)
     {
@@ -143,7 +144,7 @@ class DefaultMainFeatureLiveStrategy
     }
 }
 
-class DefaultSubFeatureLiveStrategy
+class DefaultSubFeatureLiveStrategy implements IFeatureLiveStrategy
 {
     public boolean computeFeatureLive(Feature feature, Country country)
     {
